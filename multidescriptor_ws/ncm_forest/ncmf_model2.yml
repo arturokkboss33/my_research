@@ -68,6 +68,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 0., 6., 0., 8., 1. ]
             -
                Type: terminal
                Idx: 2
@@ -119,6 +124,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 0., 6., 1., 8., 0. ]
             -
                Type: terminal
                Idx: 3
@@ -164,6 +174,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 1., 6., 0., 8., 0. ]
             -
                Type: split
                Idx: 3
@@ -369,6 +384,11 @@ ncmf_model2:
                   cols: 1
                   dt: i
                   data: [ 3, 3 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
             -
                Type: terminal
                Idx: 4
@@ -421,6 +441,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 1., 6., 0., 8., 0. ]
             -
                Type: split
                Idx: 2
@@ -663,6 +688,11 @@ ncmf_model2:
                       3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
                       3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
                       3, 3, 3, 3, 3, 3 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
             -
                Type: split
                Idx: 1
@@ -1007,6 +1037,11 @@ ncmf_model2:
                       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
                       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
                       6, 6, 6, 6, 6, 6, 6 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
       -
          treeIndex: 1
          noLeaves: 4
@@ -1064,6 +1099,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 0., 6., 0., 8., 1. ]
             -
                Type: terminal
                Idx: 2
@@ -1115,6 +1155,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 0., 6., 1., 8., 0. ]
             -
                Type: terminal
                Idx: 3
@@ -1160,6 +1205,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 1., 6., 0., 8., 0. ]
             -
                Type: split
                Idx: 3
@@ -1365,6 +1415,11 @@ ncmf_model2:
                   cols: 1
                   dt: i
                   data: [ 3, 3 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
             -
                Type: terminal
                Idx: 4
@@ -1417,6 +1472,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 1., 6., 0., 8., 0. ]
             -
                Type: split
                Idx: 2
@@ -1659,6 +1719,11 @@ ncmf_model2:
                       3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
                       3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
                       3, 3, 3, 3, 3, 3 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
             -
                Type: split
                Idx: 1
@@ -2003,6 +2068,11 @@ ncmf_model2:
                       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
                       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
                       6, 6, 6, 6, 6, 6, 6 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
       -
          treeIndex: 2
          noLeaves: 4
@@ -2060,6 +2130,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 0., 6., 0., 8., 1. ]
             -
                Type: terminal
                Idx: 2
@@ -2111,6 +2186,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 0., 6., 1., 8., 0. ]
             -
                Type: terminal
                Idx: 3
@@ -2156,6 +2236,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 1., 6., 0., 8., 0. ]
             -
                Type: split
                Idx: 3
@@ -2361,6 +2446,11 @@ ncmf_model2:
                   cols: 1
                   dt: i
                   data: [ 3, 3 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
             -
                Type: terminal
                Idx: 4
@@ -2413,6 +2503,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 1., 6., 0., 8., 0. ]
             -
                Type: split
                Idx: 2
@@ -2655,6 +2750,11 @@ ncmf_model2:
                       3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
                       3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
                       3, 3, 3, 3, 3, 3 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
             -
                Type: split
                Idx: 1
@@ -2999,6 +3099,11 @@ ncmf_model2:
                       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
                       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
                       6, 6, 6, 6, 6, 6, 6 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
       -
          treeIndex: 3
          noLeaves: 4
@@ -3056,6 +3161,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 0., 6., 0., 8., 1. ]
             -
                Type: terminal
                Idx: 2
@@ -3107,6 +3217,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 0., 6., 1., 8., 0. ]
             -
                Type: terminal
                Idx: 3
@@ -3152,6 +3267,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 1., 6., 0., 8., 0. ]
             -
                Type: split
                Idx: 3
@@ -3357,6 +3477,11 @@ ncmf_model2:
                   cols: 1
                   dt: i
                   data: [ 3, 3 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
             -
                Type: terminal
                Idx: 4
@@ -3409,6 +3534,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 1., 6., 0., 8., 0. ]
             -
                Type: split
                Idx: 2
@@ -3651,6 +3781,11 @@ ncmf_model2:
                       3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
                       3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
                       3, 3, 3, 3, 3, 3 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
             -
                Type: split
                Idx: 1
@@ -3995,6 +4130,11 @@ ncmf_model2:
                       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
                       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
                       6, 6, 6, 6, 6, 6, 6 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
       -
          treeIndex: 4
          noLeaves: 4
@@ -4052,6 +4192,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 0., 6., 0., 8., 1. ]
             -
                Type: terminal
                Idx: 2
@@ -4103,6 +4248,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 0., 6., 1., 8., 0. ]
             -
                Type: terminal
                Idx: 3
@@ -4148,6 +4298,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 1., 6., 0., 8., 0. ]
             -
                Type: split
                Idx: 3
@@ -4353,6 +4508,11 @@ ncmf_model2:
                   cols: 1
                   dt: i
                   data: [ 3, 3 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
             -
                Type: terminal
                Idx: 4
@@ -4405,6 +4565,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 1., 6., 0., 8., 0. ]
             -
                Type: split
                Idx: 2
@@ -4647,6 +4812,11 @@ ncmf_model2:
                       3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
                       3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
                       3, 3, 3, 3, 3, 3 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
             -
                Type: split
                Idx: 1
@@ -4991,6 +5161,11 @@ ncmf_model2:
                       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
                       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
                       6, 6, 6, 6, 6, 6, 6 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
       -
          treeIndex: 5
          noLeaves: 4
@@ -5048,6 +5223,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 0., 6., 0., 8., 1. ]
             -
                Type: terminal
                Idx: 2
@@ -5099,6 +5279,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 0., 6., 1., 8., 0. ]
             -
                Type: terminal
                Idx: 3
@@ -5144,6 +5329,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 1., 6., 0., 8., 0. ]
             -
                Type: split
                Idx: 3
@@ -5349,6 +5539,11 @@ ncmf_model2:
                   cols: 1
                   dt: i
                   data: [ 3, 3 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
             -
                Type: terminal
                Idx: 4
@@ -5401,6 +5596,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 1., 6., 0., 8., 0. ]
             -
                Type: split
                Idx: 2
@@ -5643,6 +5843,11 @@ ncmf_model2:
                       3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
                       3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
                       3, 3, 3, 3, 3, 3 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
             -
                Type: split
                Idx: 1
@@ -5987,6 +6192,11 @@ ncmf_model2:
                       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
                       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
                       6, 6, 6, 6, 6, 6, 6 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
       -
          treeIndex: 6
          noLeaves: 4
@@ -6044,6 +6254,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 0., 6., 0., 8., 1. ]
             -
                Type: terminal
                Idx: 2
@@ -6095,6 +6310,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 0., 6., 1., 8., 0. ]
             -
                Type: terminal
                Idx: 3
@@ -6140,6 +6360,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 1., 6., 0., 8., 0. ]
             -
                Type: split
                Idx: 3
@@ -6345,6 +6570,11 @@ ncmf_model2:
                   cols: 1
                   dt: i
                   data: [ 3, 3 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
             -
                Type: terminal
                Idx: 4
@@ -6397,6 +6627,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 1., 6., 0., 8., 0. ]
             -
                Type: split
                Idx: 2
@@ -6639,6 +6874,11 @@ ncmf_model2:
                       3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
                       3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
                       3, 3, 3, 3, 3, 3 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
             -
                Type: split
                Idx: 1
@@ -6983,6 +7223,11 @@ ncmf_model2:
                       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
                       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
                       6, 6, 6, 6, 6, 6, 6 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
       -
          treeIndex: 7
          noLeaves: 4
@@ -7040,6 +7285,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 0., 6., 0., 8., 1. ]
             -
                Type: terminal
                Idx: 2
@@ -7091,6 +7341,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 0., 6., 1., 8., 0. ]
             -
                Type: terminal
                Idx: 3
@@ -7136,6 +7391,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 1., 6., 0., 8., 0. ]
             -
                Type: split
                Idx: 3
@@ -7341,6 +7601,11 @@ ncmf_model2:
                   cols: 1
                   dt: i
                   data: [ 3, 3 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
             -
                Type: terminal
                Idx: 4
@@ -7393,6 +7658,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 1., 6., 0., 8., 0. ]
             -
                Type: split
                Idx: 2
@@ -7635,6 +7905,11 @@ ncmf_model2:
                       3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
                       3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
                       3, 3, 3, 3, 3, 3 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
             -
                Type: split
                Idx: 1
@@ -7979,6 +8254,11 @@ ncmf_model2:
                       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
                       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
                       6, 6, 6, 6, 6, 6, 6 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
       -
          treeIndex: 8
          noLeaves: 4
@@ -8036,6 +8316,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 0., 6., 0., 8., 1. ]
             -
                Type: terminal
                Idx: 2
@@ -8087,6 +8372,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 0., 6., 1., 8., 0. ]
             -
                Type: terminal
                Idx: 3
@@ -8132,6 +8422,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 1., 6., 0., 8., 0. ]
             -
                Type: split
                Idx: 3
@@ -8337,6 +8632,11 @@ ncmf_model2:
                   cols: 1
                   dt: i
                   data: [ 3, 3 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
             -
                Type: terminal
                Idx: 4
@@ -8389,6 +8689,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 1., 6., 0., 8., 0. ]
             -
                Type: split
                Idx: 2
@@ -8631,6 +8936,11 @@ ncmf_model2:
                       3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
                       3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
                       3, 3, 3, 3, 3, 3 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
             -
                Type: split
                Idx: 1
@@ -8975,6 +9285,11 @@ ncmf_model2:
                       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
                       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
                       6, 6, 6, 6, 6, 6, 6 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
       -
          treeIndex: 9
          noLeaves: 4
@@ -9032,6 +9347,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 0., 6., 0., 8., 1. ]
             -
                Type: terminal
                Idx: 2
@@ -9083,6 +9403,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 0., 6., 1., 8., 0. ]
             -
                Type: terminal
                Idx: 3
@@ -9128,6 +9453,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 1., 6., 0., 8., 0. ]
             -
                Type: split
                Idx: 3
@@ -9333,6 +9663,11 @@ ncmf_model2:
                   cols: 1
                   dt: i
                   data: [ 3, 3 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
             -
                Type: terminal
                Idx: 4
@@ -9385,6 +9720,11 @@ ncmf_model2:
                   cols: 0
                   dt: u
                   data: []
+               ClassesHist: !!opencv-matrix
+                  rows: 3
+                  cols: 2
+                  dt: f
+                  data: [ 3., 1., 6., 0., 8., 0. ]
             -
                Type: split
                Idx: 2
@@ -9627,6 +9967,11 @@ ncmf_model2:
                       3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
                       3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
                       3, 3, 3, 3, 3, 3 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []
             -
                Type: split
                Idx: 1
@@ -9971,3 +10316,8 @@ ncmf_model2:
                       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
                       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
                       6, 6, 6, 6, 6, 6, 6 ]
+               ClassesHist: !!opencv-matrix
+                  rows: 0
+                  cols: 0
+                  dt: u
+                  data: []

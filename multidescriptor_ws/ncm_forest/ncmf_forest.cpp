@@ -154,6 +154,54 @@ cv::Mat NCMF_forest::predict_with_idx(const cv::Mat& sample)
 	return used_leaves;
 }
 
+//prediction done by averaging probabilities
+//this method returns a matrix where each row has the class distribution for each tree, the first row contains the classes
+//the previous to last row of the matrix has the average probabilities for each class
+//the last row ony contains the label of the predicted class in the first element
+cv::Mat NCMF_forest::predict_with_hist(const cv::Mat& sample)
+{
+	NCMF_class_tree* dectree_tmp = forest.at(0);
+	cv::Mat classes = dectree_tmp->get_classes();
+	cv::Mat forest_hist = cv::Mat(0,classes.rows, CV_32FC1, cv::Scalar::all(0));
+	cv::Mat tmp_sum = cv::Mat(1,classes.rows, CV_32FC1, cv::Scalar::all(0));
+	
+	//compute the prediction in each tree and store the indexes
+	classes.convertTo(classes, CV_32FC1);
+	forest_hist.push_back(classes.reshape(0,1));
+	for(int tree = 0; tree < max_trees; tree++)
+	{
+		NCMF_class_tree* dectree = forest.at(tree);
+		cv::Mat prediction = dectree->predict_with_hist(sample);
+		//std::cout << "predict\n" << prediction << std::endl;
+		cv::transpose(prediction, prediction);
+		//std::cout << "predict\n" << prediction << std::endl;
+		forest_hist.push_back(prediction.row(1));
+		//std::cout << "hist" << forest_hist << std::endl;
+		tmp_sum = tmp_sum + forest_hist.row(tree+1);
+		prediction.release();
+	}
+	forest_hist.push_back(tmp_sum);
+	forest_hist.row(max_trees+1) = forest_hist.row(max_trees+1)/max_trees;
+	
+	//see which class has the highest probability
+	float max_prob = 0.;
+	int best_class_pos = -1;
+	for(int c = 0; c < forest_hist.cols; c++){
+		if(forest_hist.at<float>(max_trees+1,c) > max_prob){
+			max_prob = forest_hist.at<float>(max_trees+1,c);
+			best_class_pos = c;
+		}
+	}
+	cv::Mat final_prediction = cv::Mat(1,forest_hist.cols, CV_32FC1, cv::Scalar::all(0));
+	final_prediction.at<float>(0,0) = forest_hist.at<float>(0,best_class_pos);
+	forest_hist.push_back(final_prediction);
+	
+	//std::cout << "hist" << forest_hist << std::endl;
+	 
+	
+	return forest_hist;
+}
+
 void NCMF_forest::save_model(std::string filename, std::string name)
 {
 	cv::FileStorage fs(filename.c_str(), cv::FileStorage::WRITE);

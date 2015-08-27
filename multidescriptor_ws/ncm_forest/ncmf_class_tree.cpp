@@ -268,6 +268,62 @@ cv::Mat NCMF_class_tree::predict_with_idx(const cv::Mat& sample)
 
 	return prediction_mat;
 
+}
+
+cv::Mat NCMF_class_tree::predict_with_hist(const cv::Mat& sample){
+	NCMF_node* tmp_node = dbst.get_root();
+	//int prediction = -1;
+	cv::Mat prediction_mat;
+
+	while(tmp_node != NULL)
+	{
+		if( !(tmp_node->type.compare("terminal")) )
+			return tmp_node->classes_dist;
+		else
+		{
+			bool flag_compare = false;
+			double min_dist_left = 0;
+			for(std::map<int,cv::Mat>::iterator it = tmp_node->left_centroids.begin(); 
+				it != tmp_node->left_centroids.end(); ++it)
+			{
+				double dist = cv::norm(sample,it->second);
+				if(!flag_compare)
+				{
+					min_dist_left = dist;
+					flag_compare = true;
+				}
+				else
+				{
+					if(dist < min_dist_left)
+						min_dist_left = dist;
+				}
+			}
+			flag_compare = false;
+			double min_dist_right = 0.;
+			for(std::map<int,cv::Mat>::iterator it = tmp_node->right_centroids.begin(); 
+				it != tmp_node->right_centroids.end(); ++it)
+			{
+				double dist = cv::norm(sample,it->second);
+				if(!flag_compare)
+				{
+					min_dist_right = dist;
+					flag_compare = true;
+				}
+				else
+				{
+					if(dist < min_dist_right)
+						min_dist_right = dist;
+				}
+			}
+
+			if( min_dist_left < min_dist_right)
+				tmp_node = tmp_node->f;
+			else
+				tmp_node = tmp_node->t;
+		}
+	}
+
+	return prediction_mat;
 
 }
 
@@ -358,6 +414,8 @@ void NCMF_class_tree::load_model(cv::FileNode& fnode_tree, cv::FileNode& fnode_p
 		tmp_centroids.clear();
 		tmp_labels.release(); tmp_vals.release();	
 		
+		(*node_it)["ClassesHist"] >> nod->classes_dist;;
+		
 		
 		if(nod->depth < max_depth)
 		{
@@ -439,14 +497,14 @@ NCMF_node* NCMF_class_tree::learn_dectree(const cv::Mat& p_samples_labels, const
 	if(samples_labels.empty())
 	{
 		dectree.insert_node(&dectree_root, "terminal", (++terminal_nodes_idx), depth, plurality(p_samples_labels), 
-			dummy_table, dummy_table, samples_data, cv::Mat(), samples_labels, cv::Mat());
+			dummy_table, dummy_table, samples_data, cv::Mat(), samples_labels, cv::Mat(), get_classes_hist(p_samples_labels));
 		return dectree_root;
 	}
 	//if all examples have the same classification
 	else if(check_classif(samples_labels))
 	{
 		dectree.insert_node(&dectree_root, "terminal", (++terminal_nodes_idx), depth, samples_labels.at<int>(0), 
-			dummy_table, dummy_table, samples_data, cv::Mat(), samples_labels, cv::Mat());
+			dummy_table, dummy_table, samples_data, cv::Mat(), samples_labels, cv::Mat(), get_classes_hist(samples_labels));
 		return dectree_root;
 	}
 	//if this case is hit, there are attributes and samples to analyze
@@ -454,7 +512,7 @@ NCMF_node* NCMF_class_tree::learn_dectree(const cv::Mat& p_samples_labels, const
 	else if(depth >= depth_limit || (unsigned)samples_labels.rows < min_samples)
 	{
 		dectree.insert_node(&dectree_root, "terminal", (++terminal_nodes_idx), depth, plurality(samples_labels), 
-			dummy_table, dummy_table, samples_data, cv::Mat(), samples_labels, cv::Mat());
+			dummy_table, dummy_table, samples_data, cv::Mat(), samples_labels, cv::Mat(), get_classes_hist(samples_labels));
 		return dectree_root;
 	}
 	
@@ -482,7 +540,7 @@ NCMF_node* NCMF_class_tree::learn_dectree(const cv::Mat& p_samples_labels, const
 		{
 			//std::cout << "FAIL" << std::endl;
 			dectree.insert_node(&dectree_root, "terminal", (++terminal_nodes_idx), depth, plurality(samples_labels), 
-				dummy_table, dummy_table, samples_data, cv::Mat(), samples_labels, cv::Mat());
+				dummy_table, dummy_table, samples_data, cv::Mat(), samples_labels, cv::Mat(), get_classes_hist(samples_labels));
 			no_split_fail = 0;
 			return dectree_root;
 		}	
@@ -959,6 +1017,29 @@ double NCMF_class_tree::compute_entropy(const cv::Mat& labels)
 	entropy *= -1.;
 
 	return entropy;
+}
+
+cv::Mat NCMF_class_tree::get_classes_hist(const cv::Mat& sample_labels){
+	cv::Mat classes_hist = cv::Mat(classes.rows,2, CV_32FC1);
+	std::map<int,float> classes_count;
+	
+	for(int c = 0; c < classes.rows; c++){
+		classes_count.insert(std::pair<int,int>(classes.at<int>(c),0.));
+	}
+	
+	for(int l = 0; l < sample_labels.rows; l++){
+		classes_count[sample_labels.at<int>(l)] +=1;
+	}
+	
+	for(int c = 0; c < classes.rows; c++){
+		classes_count[classes.at<int>(c)] /= sample_labels.rows;
+		classes_hist.at<float>(c,0) = classes.at<int>(c);
+		classes_hist.at<float>(c,1) = classes_count[classes.at<int>(c)];
+	}
+	
+	
+	return classes_hist;
+	
 }
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//

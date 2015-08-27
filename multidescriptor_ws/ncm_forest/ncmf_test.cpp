@@ -252,6 +252,9 @@ int main ( int argc, char *argv[] )
 		good_classif = good_classif/test_samples.rows;
 
 	std::cout << "Testing accuracy: " << good_classif << std::endl;
+	
+	cv::Mat hist = ncmf_copy->predict_with_hist(test_samples.row(10));
+	std::cout << hist << std::endl;
 
 	
 

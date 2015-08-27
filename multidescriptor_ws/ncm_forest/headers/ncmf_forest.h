@@ -41,6 +41,7 @@ class NCMF_forest
 		//void train(const cv::Mat& training_data, const cv::Mat& labels, int depth_thresh, unsigned int samples_thresh, int vars_per_node, int no_trees);
 		int predict(const cv::Mat& sample);
 		cv::Mat predict_with_idx(const cv::Mat& sample);
+		cv::Mat predict_with_hist(const cv::Mat& sample);
 		
 		void save_model(std::string filename, std::string name);
 		void load_model(std::string filename, std::string name);

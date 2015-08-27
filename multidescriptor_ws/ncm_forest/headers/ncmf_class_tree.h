@@ -72,10 +72,11 @@ class NCMF_class_tree
 		//			 of samples is less, a majority voting is made
 		// vars_per_node     --> number of variables/attributes selected randomly at each node to choose the best split 
 		
-		int predict(const cv::Mat& sample);			//prediction - returns a class label
+		int predict(const cv::Mat& sample);					//prediction - returns a class label
 		cv::Mat predict_with_idx(const cv::Mat& sample);	//prediction which returns the leaves indexes reached
-									//it returns a row vector with the class output and the 
-									//leaf index reached in the decision process
+															//it returns a row vector with the class output and the 
+															//leaf index reached in the decision process
+		cv::Mat predict_with_hist(const cv::Mat& sample);	//prediction - returns class distribution
 
 		void inOrder_tree();		//to print the structure of the tree
 		void postOrder_tree();		//to print the structure of the tree
@@ -129,6 +130,7 @@ class NCMF_class_tree
 		//std::vector<double> gen_ran_splits(std::vector<int> attr, const cv::Mat& samples); //generate random splits
 		double compute_erf_entropy(const cv::Mat& labels, const cv::Mat& neg_labels, const cv::Mat& pos_labels); //shannon entropy
 		double compute_entropy(const cv::Mat& labels); //standard entropy
+		cv::Mat get_classes_hist(const cv::Mat& sample_labels); // get the class distribution at a leaf node
 
 		//extra methods
 		void find_depth(NCMF_node*); 

@@ -37,7 +37,7 @@ class NCMF_BST
 		//based on it's type: terminal or splitting
 		void insert_node(NCMF_node** rootPtr, std::string type, unsigned int idx, int depth, int classification, 
 					std::map<int, cv::Mat> left_centr, std::map<int, cv::Mat> right_centr, const cv::Mat& left_data, 
-					const cv::Mat& right_data, const cv::Mat& left_labels, const cv::Mat& right_labels); 
+					const cv::Mat& right_data, const cv::Mat& left_labels, const cv::Mat& right_labels, const cv::Mat& hist); 
 		void insert_node(NCMF_node** rootPtr, NCMF_node* node);
 		//common methods to traverse a binary tree
 		void inOrder(NCMF_node* root);
@@ -51,7 +51,7 @@ class NCMF_BST
 		//auxiliary method to insert a node
 		NCMF_node* create_node(std::string type, unsigned int idx, int depth, int classification, 
 					std::map<int, cv::Mat> left_centr, std::map<int, cv::Mat> right_centr, const cv::Mat& left_data,
-					const cv::Mat& right_data, const cv::Mat& left_labels, const cv::Mat& right_labels);
+					const cv::Mat& right_data, const cv::Mat& left_labels, const cv::Mat& right_labels, const cv::Mat& hist);
 };
 
 

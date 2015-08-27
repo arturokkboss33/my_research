@@ -37,12 +37,14 @@ void NCMF_BST::set_root(NCMF_node* rootPtr)
 
 //insert is not the same as in a common binary balance tree
 //the logic to insert the node in a branch of the tree is handled in the decision tree learning algorithm
-void NCMF_BST::insert_node(NCMF_node** rootPtr, std::string type, unsigned int idx, int depth, int classification, std::map<int, cv::Mat> left_centr, std::map<int, cv::Mat> right_centr, const cv::Mat& left_data, const cv::Mat& right_data, const cv::Mat& left_labels, const cv::Mat& right_labels)
+void NCMF_BST::insert_node(NCMF_node** rootPtr, std::string type, unsigned int idx, int depth, int classification, 
+	std::map<int, cv::Mat> left_centr, std::map<int, cv::Mat> right_centr, const cv::Mat& left_data, const cv::Mat& right_data, 
+	const cv::Mat& left_labels, const cv::Mat& right_labels, const cv::Mat& hist)
 {
 	//check if the tree is empty
 	if(*rootPtr == NULL)
 	{
-		*rootPtr = create_node(type, idx, depth, classification, left_centr, right_centr, left_data, right_data, left_labels, right_labels);
+		*rootPtr = create_node(type, idx, depth, classification, left_centr, right_centr, left_data, right_data, left_labels, right_labels, hist);
 	}
 	else
 	{
@@ -104,7 +106,8 @@ void NCMF_BST::postOrder(NCMF_node* ptr)
 //depending if it is a leaf or a split node, the node's fields are
 //filled out differently
 NCMF_node* NCMF_BST::create_node(std::string type, unsigned int idx, int depth, int classification, const std::map<int, cv::Mat> left_centr, 
-	std::map<int, cv::Mat> right_centr, const cv::Mat& left_data, const cv::Mat& right_data, const cv::Mat& left_labels, const cv::Mat& right_labels)
+	std::map<int, cv::Mat> right_centr, const cv::Mat& left_data, const cv::Mat& right_data, 
+	const cv::Mat& left_labels, const cv::Mat& right_labels, const cv::Mat& hist)
 {
 	NCMF_node* new_node = new NCMF_node();
 	new_node->type = type;
@@ -123,6 +126,7 @@ NCMF_node* NCMF_BST::create_node(std::string type, unsigned int idx, int depth, 
 		new_node->right_data = right_data.clone();
 		new_node->left_labels = left_labels.clone();
 		new_node->right_labels = right_labels.clone();
+		new_node->classes_dist = cv::Mat();
 
 		//std::cout << "Node split inserted" << std::endl;
 	}
@@ -140,6 +144,8 @@ NCMF_node* NCMF_BST::create_node(std::string type, unsigned int idx, int depth, 
 		new_node->right_data = cv::Mat();
 		new_node->left_labels = left_labels.clone();
 		new_node->right_labels = cv::Mat();
+		new_node->classes_dist = hist.clone();
+
 
 		//std::cout << "Node terminal inserted" << std::endl;
 	}
@@ -191,6 +197,8 @@ void NCMF_BST::postOrder_save(NCMF_node* ptr, cv::FileStorage& fs)
 		fs << "RightSamples" << ptr->right_data;
 		fs << "RightSampleLabels" << ptr->right_labels;
 		tmp_centroids.release(); tmp_centroid_labels.release();
+		
+		fs << "ClassesHist" << ptr->classes_dist;
 		
 		fs << "}";
 	}

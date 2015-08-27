@@ -44,6 +44,7 @@ struct ncmf_node
 	cv::Mat right_data;						//samples assigned to the right child
 	cv::Mat left_labels;					//left samples' labels
 	cv::Mat right_labels;					//right samples' labels
+	cv::Mat classes_dist;					//class distribution
 	ncmf_node* f; 							//pointer to left branch
 	ncmf_node* t; 							//pointer to right branch
 };
