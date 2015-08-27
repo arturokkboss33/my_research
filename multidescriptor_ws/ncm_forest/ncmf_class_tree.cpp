@@ -125,10 +125,13 @@ void NCMF_class_tree::train(const cv::Mat& training_data, const cv::Mat& labels,
 	//minimum samples
 	min_samples = samples_thresh;
 	//active variables
-	if(classes.rows < classes_per_node)
-		active_classes = classes.rows;
-	else
-		active_classes = classes_per_node;
+	active_classes = (int)ceil(sqrt(classes.rows));
+	//if(classes_per_node < 0)
+		//active_classes = ceil(sqrt(classes.rows));
+	//else if(classes.rows < classes_per_node)
+		//active_classes = classes.rows;
+	//else
+		//active_classes = classes_per_node;
 	//max number of bits used to generate splits
 	if(active_classes > max_split_fcns)
 		more_split_fcns = true;
@@ -723,10 +726,10 @@ NCMF_node* NCMF_class_tree::erf_split(const cv::Mat& samples, const cv::Mat& lab
 
 	//first compute which is the closest centroid to each sample
 	cv::Mat closest_centr_pos(0,1,CV_32SC1);
-	for(int s = 0; s < selected_samples.rows; s++)
+	for(int s = 0; s < samples.rows; s++)
 	{
 		//find closest centroid for sample ex
-		cv::Mat ex = init_samples.row(selected_samples.at<int>(s));
+		cv::Mat ex = init_samples.row(samples.at<int>(s));
 		int class_pos = 0;
 		double min_dist = 0.;
 		bool flag_compare_centroids = false;
@@ -770,6 +773,7 @@ NCMF_node* NCMF_class_tree::erf_split(const cv::Mat& samples, const cv::Mat& lab
 	double max_split_score = 0.;
 	boost::dynamic_bitset<> best_partition(selected_classes.rows);
 	//std::bitset<active_classes> best_partition;
+	//std::cout << stop_partition << std::endl;
 
 	//split the samples according to their closest centroid
 	if(!more_split_fcns)
@@ -785,13 +789,13 @@ NCMF_node* NCMF_class_tree::erf_split(const cv::Mat& samples, const cv::Mat& lab
 				//see to which branch the closest centroid was assigned and store the sample there
 				//std::cout << "&&& " << partition[ex] << std::endl;
 				if(partition[closest_centr_pos.at<int>(ex)])
-					right_labels.push_back(selected_labels.at<int>(ex));
+					right_labels.push_back(labels.at<int>(ex));
 				else
-					left_labels.push_back(selected_labels.at<int>(ex));
+					left_labels.push_back(labels.at<int>(ex));
 			}
 
 			//compute the shannon entropy of the obtained split
-			double split_score = compute_erf_entropy(selected_labels, left_labels, right_labels);
+			double split_score = compute_erf_entropy(labels, left_labels, right_labels);
 			//std::cout << split_score << std::endl;
 
 			//compare the score with the previous ones, and save the best
@@ -832,18 +836,18 @@ NCMF_node* NCMF_class_tree::erf_split(const cv::Mat& samples, const cv::Mat& lab
 	cv::Mat final_left_data(0,1,CV_32FC1);
 	std::map<int, cv::Mat> right_centroids;
 	std::map<int, cv::Mat> left_centroids;
-	for(int ex = 0; ex < selected_samples.rows; ex++)
+	for(int ex = 0; ex < samples.rows; ex++)
 	{
 		//see to which branch the closest centroid was assigned and store the sample there
 		if(best_partition[closest_centr_pos.at<int>(ex)])
 		{
-			final_right_labels.push_back(selected_labels.at<int>(ex));
-			final_right_data.push_back(selected_samples.at<int>(ex));			
+			final_right_labels.push_back(labels.at<int>(ex));
+			final_right_data.push_back(samples.at<int>(ex));			
 		}
 		else
 		{
-			final_left_labels.push_back(selected_labels.at<int>(ex));
-			final_left_data.push_back(selected_samples.at<int>(ex));
+			final_left_labels.push_back(labels.at<int>(ex));
+			final_left_data.push_back(samples.at<int>(ex));
 		}
 	}
 	for(int no_bit = 0; no_bit < selected_classes.rows; no_bit++)
@@ -918,9 +922,10 @@ cv::Mat NCMF_class_tree::pick_classes(const cv::Mat curr_labels)
 	//	table_classes.insert( std::pair<int, short>(curr_classes.at<int>(no_class),0) );
 
 	//pick k classes randomly
-	if(curr_classes.rows <= active_classes)
-		return curr_classes;
-	else
+	active_classes = (int)ceil(sqrt(curr_classes.rows));
+	//if(curr_classes.rows <= active_classes)
+	//	return curr_classes;
+	//else
 	{
 		std::map<unsigned int, short> table_classes;
 		int no_picked_classes = 0;
