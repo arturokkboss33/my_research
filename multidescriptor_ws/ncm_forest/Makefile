@@ -21,8 +21,8 @@ OPENCV_LIBS = `pkg-config --libs opencv`
 #erf_test.o : erf_test.cpp ${HEADERS_DIR}/dectree_class.h ${HEADERS_DIR}/dectree_bst.h
 #	${CC} ${CFLAGS} ${DSEARCH} -c erf_test.cpp
 
-ncmf_exe : ncmf_bst.o ncmf_class_tree.o ncmf_forest.o ncmf_test.o
-	${CC} ${CFLAGS} ${DSEARCH} ${OPENCV_FLAGS} ncmf_bst.o ncmf_class_tree.o ncmf_forest.o ncmf_test.o -o ncmf_exe ${OPENCV_LIBS}
+ncmf_exe : ncmf_bst.o ncmf_class_tree.o ncmf_forest.o ncmf_main_test.o
+	${CC} ${CFLAGS} ${DSEARCH} ${OPENCV_FLAGS} ncmf_bst.o ncmf_class_tree.o ncmf_forest.o ncmf_main_test.o -o ncmf_exe ${OPENCV_LIBS}
 
 ncmf_bst.o : ncmf_bst.cpp ${HEADERS_DIR}/ncmf_bst.h ${HEADERS_DIR}/ncmf_node.h
 	${CC} ${CFLAGS} ${DSEARCH} -c ncmf_bst.cpp
@@ -33,8 +33,11 @@ ncmf_class_tree.o : ncmf_class_tree.cpp ${HEADERS_DIR}/ncmf_class_tree.h ${HEADE
 ncmf_forest.o : ncmf_forest.cpp ${HEADERS_DIR}/ncmf_forest.h ${HEADERS_DIR}/ncmf_class_tree.h
 	${CC} ${CFLAGS} ${DSEARCH} -c ncmf_forest.cpp
 
-ncmf_test.o : ncmf_test.cpp ${HEADERS_DIR}/ncmf_class_tree.h ${HEADERS_DIR}/ncmf_bst.h ${HEADERS_DIR}/ncmf_node.h
-	${CC} ${CFLAGS} ${DSEARCH} -c ncmf_test.cpp
+#ncmf_test.o : ncmf_test.cpp ${HEADERS_DIR}/ncmf_class_tree.h ${HEADERS_DIR}/ncmf_bst.h ${HEADERS_DIR}/ncmf_node.h
+#	${CC} ${CFLAGS} ${DSEARCH} -c ncmf_test.cpp
+
+ncmf_main_test.o : ncmf_main_test.cpp ${HEADERS_DIR}/ncmf_class_tree.h ${HEADERS_DIR}/ncmf_bst.h ${HEADERS_DIR}/ncmf_node.h
+	${CC} ${CFLAGS} ${DSEARCH} -c ncmf_main_test.cpp
 
 clean :
 	rm -rf *o dectree_exe

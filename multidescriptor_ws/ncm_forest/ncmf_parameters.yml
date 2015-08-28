@@ -1,0 +1,17 @@
+%YAML:1.0
+
+model_name: ncmf_model
+model_file: ncmf_flavia_b_model.yml
+save_model: 1
+
+training_set: ../datasets_descriptors/training_sets/flavia_leaves_b_sift_sift.yml
+test_set: ../datasets_descriptors/test_sets/flavia_leaves_b_sift_sift.yml
+
+max_depth: -1
+min_samples: 20
+active_classes: -1
+no_trees: 15
+
+eval_per_feature: 0
+test_trainSet: 1
+test_testSet: 1
