@@ -31,6 +31,7 @@ ERF_class::ERF_class()
 	depth_limit = 1;
 	min_samples = 1;
 	active_vars = 1;
+	training_time = 0.;
 }
 
 //*********************** PUBLIC FUNCTIONS *************************//
@@ -46,6 +47,8 @@ void ERF_class::train(const cv::Mat& training_data, const cv::Mat& labels, int d
 	min_samples = samples_thresh;
 	active_vars = vars_per_node;
 
+	clock_t t;
+	t = clock();
 	for(int tree = 0; tree < max_trees; tree++)
 	{
 		Dectree_class* dectree = new Dectree_class(rng);
@@ -54,6 +57,8 @@ void ERF_class::train(const cv::Mat& training_data, const cv::Mat& labels, int d
 		rng = dectree->get_rng();	//get the last state of the random generator
 		forest.push_back(dectree);		
 	}
+	t = clock() - t;
+	training_time = ((float)t)/CLOCKS_PER_SEC;
 
 }
 
@@ -157,7 +162,56 @@ cv::Mat ERF_class::predict_with_idx(const cv::Mat& sample)
 	return used_leaves;
 }
 
-void ERF_class::save_model(std::string filename, std::string name)
+//prediction done by averaging probabilities
+//this method returns a matrix where each row has the class distribution for each tree, the first row contains the classes
+//the previous to last row of the matrix has the average probabilities for each class
+//the last row ony contains the label of the predicted class in the first element
+cv::Mat ERF_class::predict_with_hist(const cv::Mat& sample, int* predicted_label)
+{
+	Dectree_class* dectree_tmp = forest.at(0);
+	cv::Mat classes = dectree_tmp->get_classes();
+	cv::Mat forest_hist = cv::Mat(0,classes.rows, CV_32FC1, cv::Scalar::all(0));
+	cv::Mat tmp_sum = cv::Mat(1,classes.rows, CV_32FC1, cv::Scalar::all(0));
+	
+	//compute the prediction in each tree and store the indexes
+	classes.convertTo(classes, CV_32FC1);
+	forest_hist.push_back(classes.reshape(0,1));
+	for(int tree = 0; tree < max_trees; tree++)
+	{
+		Dectree_class* dectree = forest.at(tree);
+		cv::Mat prediction = dectree->predict_with_hist(sample);
+		//std::cout << "predict\n" << prediction << std::endl;
+		cv::transpose(prediction, prediction);
+		//std::cout << "predict\n" << prediction << std::endl;
+		forest_hist.push_back(prediction.row(1));
+		//std::cout << "hist" << forest_hist << std::endl;
+		tmp_sum = tmp_sum + forest_hist.row(tree+1);
+		prediction.release();
+	}
+	forest_hist.push_back(tmp_sum);
+	forest_hist.row(max_trees+1) = forest_hist.row(max_trees+1)/max_trees;
+	
+	//see which class has the highest probability
+	float max_prob = 0.;
+	int best_class_pos = -1;
+	for(int c = 0; c < forest_hist.cols; c++){
+		if(forest_hist.at<float>(max_trees+1,c) > max_prob){
+			max_prob = forest_hist.at<float>(max_trees+1,c);
+			best_class_pos = c;
+		}
+	}
+	cv::Mat final_prediction = cv::Mat(1,forest_hist.cols, CV_32FC1, cv::Scalar::all(0));
+	final_prediction.at<float>(0,0) = forest_hist.at<float>(0,best_class_pos);
+	*predicted_label = forest_hist.at<float>(0,best_class_pos);
+	forest_hist.push_back(final_prediction);
+	
+	//std::cout << "hist" << forest_hist << std::endl;
+	 
+	
+	return forest_hist;
+}
+
+void ERF_class::save_model(std::string filename, std::string name, std::string training_file)
 {
 	cv::FileStorage fs(filename.c_str(), cv::FileStorage::WRITE);
 	Dectree_class* dectree_tmp = forest.at(0);
@@ -166,6 +220,8 @@ void ERF_class::save_model(std::string filename, std::string name)
 	fs << name << "{";
 	
 	fs << "trainingParams" << "{";
+	fs << "database" << training_file;
+	fs << "trainingTime" << training_time;
 	fs << "noTrees" << max_trees;
 	fs << "depthLimit" << depth_limit;
 	fs << "minSamples" << min_samples;
@@ -195,6 +251,7 @@ void ERF_class::load_model(std::string filename, std::string name)
 	depth_limit = (int)training_params["depthLimit"];
 	min_samples = (int)training_params["minSamples"];
 	active_vars = (int)training_params["activeVars"];
+	training_time = (float)training_params["trainingTime"];
 	
 	cv::FileNode trees = erf_obj["trees"];
 	cv::FileNodeIterator tree_it = trees.begin(), it_end = trees.end();

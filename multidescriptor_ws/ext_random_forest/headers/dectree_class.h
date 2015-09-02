@@ -76,6 +76,7 @@ class Dectree_class
 		cv::Mat predict_with_idx(const cv::Mat& sample);	//prediction which returns the leaves indexes reached
 									//it returns a row vector with the class output and the 
 									//leaf index reached in the decision process
+		cv::Mat predict_with_hist(const cv::Mat& sample);
 
 		void inOrder_tree();		//to print the structure of the tree
 		void postOrder_tree();		//to print the structure of the tree
@@ -127,6 +128,7 @@ class Dectree_class
 		double compute_entropy(const cv::Mat& labels); //standard entropy
 
 		//extra methods
+		cv::Mat get_classes_hist(const cv::Mat& sample_labels);
 		void find_depth(dectree_node*);
 
 };

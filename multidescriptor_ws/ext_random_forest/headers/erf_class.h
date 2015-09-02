@@ -39,7 +39,8 @@ class ERF_class
 		void train(const cv::Mat& training_data, const cv::Mat& labels, int depth_thresh, unsigned int samples_thresh, int vars_per_node, int no_trees);
 		int predict(const cv::Mat& sample);
 		cv::Mat predict_with_idx(const cv::Mat& sample);
-		void save_model(std::string filename, std::string name);
+		cv::Mat predict_with_hist(const cv::Mat& sample, int* predicted_label);
+		void save_model(std::string filename, std::string name, std::string training_file);
 		void load_model(std::string filename, std::string name);
 
 	private:
@@ -49,6 +50,7 @@ class ERF_class
 		int depth_limit;
 		int min_samples;
 		int active_vars;
+		float training_time;
 		cv::RNG rng; 
 		std::vector<Dectree_class*> forest;
 };

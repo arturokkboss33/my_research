@@ -28,6 +28,7 @@ NCMF_forest::NCMF_forest()
 {
 	max_trees = 1;
 	tree_idx = 0;
+	training_time = 0.;
 }
 
 //*********************** PUBLIC FUNCTIONS *************************//
@@ -43,6 +44,8 @@ void NCMF_forest::train(const cv::Mat& training_data, const cv::Mat& labels, int
 	min_samples = samples_thresh;
 	active_classes = classes_per_node;
 
+	clock_t t;
+	t = clock();
 	for(int tree = 0; tree < max_trees; tree++)
 	{
 		NCMF_class_tree* dectree = new NCMF_class_tree(rng);
@@ -51,6 +54,8 @@ void NCMF_forest::train(const cv::Mat& training_data, const cv::Mat& labels, int
 		rng = dectree->get_rng();	//get the last state of the random generator
 		forest.push_back(dectree);		
 	}
+	t = clock() - t;
+	training_time = ((float)t)/CLOCKS_PER_SEC;
 
 }
 
@@ -158,7 +163,7 @@ cv::Mat NCMF_forest::predict_with_idx(const cv::Mat& sample)
 //this method returns a matrix where each row has the class distribution for each tree, the first row contains the classes
 //the previous to last row of the matrix has the average probabilities for each class
 //the last row ony contains the label of the predicted class in the first element
-cv::Mat NCMF_forest::predict_with_hist(const cv::Mat& sample)
+cv::Mat NCMF_forest::predict_with_hist(const cv::Mat& sample, int* predicted_label)
 {
 	NCMF_class_tree* dectree_tmp = forest.at(0);
 	cv::Mat classes = dectree_tmp->get_classes();
@@ -194,6 +199,7 @@ cv::Mat NCMF_forest::predict_with_hist(const cv::Mat& sample)
 	}
 	cv::Mat final_prediction = cv::Mat(1,forest_hist.cols, CV_32FC1, cv::Scalar::all(0));
 	final_prediction.at<float>(0,0) = forest_hist.at<float>(0,best_class_pos);
+	*predicted_label = forest_hist.at<float>(0,best_class_pos);
 	forest_hist.push_back(final_prediction);
 	
 	//std::cout << "hist" << forest_hist << std::endl;
@@ -202,7 +208,7 @@ cv::Mat NCMF_forest::predict_with_hist(const cv::Mat& sample)
 	return forest_hist;
 }
 
-void NCMF_forest::save_model(std::string filename, std::string name)
+void NCMF_forest::save_model(std::string filename, std::string name, std::string training_file)
 {
 	cv::FileStorage fs(filename.c_str(), cv::FileStorage::WRITE);
 	NCMF_class_tree* dectree_tmp = forest.at(0);
@@ -211,6 +217,8 @@ void NCMF_forest::save_model(std::string filename, std::string name)
 	fs << name << "{";
 	
 	fs << "trainingParams" << "{";
+	fs << "database" << training_file;
+	fs << "trainingTime" << training_time;
 	fs << "noTrees" << max_trees;
 	fs << "depthLimit" << depth_limit;
 	fs << "minSamples" << min_samples;

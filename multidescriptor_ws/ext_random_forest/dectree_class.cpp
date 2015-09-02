@@ -183,6 +183,30 @@ cv::Mat Dectree_class::predict_with_idx(const cv::Mat& sample)
 
 }
 
+//predict with histograms
+cv::Mat Dectree_class::predict_with_hist(const cv::Mat& sample){
+	dectree_node* tmp_node = dbst.get_root();
+	//int prediction = -1;
+	cv::Mat prediction_mat;
+
+	while(tmp_node != NULL)
+	{
+		if( !(tmp_node->type.compare("terminal")) )
+			return tmp_node->classes_dist;
+		else
+		{
+			if( sample.at<float>(tmp_node->attribute_id) < tmp_node->cut_point)
+				tmp_node = tmp_node->f;
+			else
+				tmp_node = tmp_node->t;
+		}
+
+	}
+	
+	return prediction_mat;
+
+}
+
 //methods to save and load the model into a YAML file for reuse
 void Dectree_class::save_model(cv::FileStorage& fs)
 {
@@ -231,7 +255,7 @@ void Dectree_class::load_model(cv::FileNode& fnode_tree, cv::FileNode& fnode_par
 	cv::FileNode tree_nodes = fnode_tree["nodes"];
 	cv::FileNodeIterator node_it = tree_nodes.begin(), it_end = tree_nodes.end();
 	std::vector< std::queue<dectree_node*> > tree_queue(max_depth,dummy_queue);
-	std::cout << "***" << tree_queue.size() << std::endl;
+	//std::cout << "***" << tree_queue.size() << std::endl;
 	
 	for(; node_it != it_end; ++node_it)
 	{	
@@ -245,6 +269,7 @@ void Dectree_class::load_model(cv::FileNode& fnode_tree, cv::FileNode& fnode_par
 		nod->attribute_id = (int)(*node_it)["Attribute"];
 		nod->output_id = (int)(*node_it)["Output"];
 		nod->cut_point = (float)(*node_it)["CutPoint"];
+		(*node_it)["ClassesHist"] >> nod->classes_dist;
 		
 		if(nod->depth < max_depth)
 		{
@@ -262,7 +287,7 @@ void Dectree_class::load_model(cv::FileNode& fnode_tree, cv::FileNode& fnode_par
 		
 	}
 	
-	std::cout << "ooo" << std::endl;
+	//std::cout << "ooo" << std::endl;
 	dbst.set_root(tree_queue.at(0).front());
 	tree_queue.at(0).pop();
 	//fs.release();
@@ -335,20 +360,23 @@ dectree_node* Dectree_class::learn_dectree(const cv::Mat& p_samples_labels, cons
 	//if there are no more examples		
 	if(samples_labels.empty())
 	{
-		dectree.insert_node(&dectree_root, "terminal", (++terminal_nodes_idx), depth, -1, -1, plurality(p_samples_labels));
+		dectree.insert_node(&dectree_root, "terminal", (++terminal_nodes_idx), depth, -1, -1, 
+			plurality(p_samples_labels),get_classes_hist(p_samples_labels));
 		return dectree_root;
 	}
 	//if all examples have the same classification
 	else if(check_classif(samples_labels))
 	{
-		dectree.insert_node(&dectree_root, "terminal", (++terminal_nodes_idx), depth, -1, -1, samples_labels.at<int>(0));
+		dectree.insert_node(&dectree_root, "terminal", (++terminal_nodes_idx), depth, -1, -1, 
+			samples_labels.at<int>(0), get_classes_hist(samples_labels));
 		return dectree_root;
 	}
 	//if this case is hit, there are attributes and samples to analyze
 	//it checks the maximum depth and minimum sample constraints
 	else if(depth >= depth_limit || (unsigned)samples_labels.rows < min_samples)
 	{
-		dectree.insert_node(&dectree_root, "terminal", (++terminal_nodes_idx), depth, -1, -1, plurality(samples_labels));
+		dectree.insert_node(&dectree_root, "terminal", (++terminal_nodes_idx), depth, -1, -1, 
+			plurality(samples_labels),get_classes_hist(samples_labels));
 		return dectree_root;
 	}
 	//else call the method recursively after finding the best split
@@ -373,7 +401,8 @@ dectree_node* Dectree_class::learn_dectree(const cv::Mat& p_samples_labels, cons
 		if(no_split_fail >= max_split_fail)
 		{
 			//std::cout << "FAIL" << std::endl;
-			dectree.insert_node(&dectree_root,"terminal", (++terminal_nodes_idx), depth, -1, -1, plurality(samples_labels));
+			dectree.insert_node(&dectree_root,"terminal", (++terminal_nodes_idx), depth, -1, -1, 
+				plurality(samples_labels), get_classes_hist(samples_labels));
 			no_split_fail = 0;
 			return dectree_root;
 		}	
@@ -381,7 +410,7 @@ dectree_node* Dectree_class::learn_dectree(const cv::Mat& p_samples_labels, cons
 		else
 		{
 			//create a node split with the best attribute as generator of a split
-			dectree.insert_node(&dectree_root,"split", (++split_nodes_idx), depth, split->attr_name, split->cut_point, -1);	
+			dectree.insert_node(&dectree_root,"split", (++split_nodes_idx), depth, split->attr_name, split->cut_point, -1, cv::Mat());	
 
 			//call the fcn recursively
 			//Here, no attributes are erased
@@ -685,6 +714,30 @@ double Dectree_class::compute_entropy(const cv::Mat& labels)
 
 	return entropy;
 }
+
+cv::Mat Dectree_class::get_classes_hist(const cv::Mat& sample_labels){
+	cv::Mat classes_hist = cv::Mat(classes.rows,2, CV_32FC1);
+	std::map<int,float> classes_count;
+	
+	for(int c = 0; c < classes.rows; c++){
+		classes_count.insert(std::pair<int,int>(classes.at<int>(c),0.));
+	}
+	
+	for(int l = 0; l < sample_labels.rows; l++){
+		classes_count[sample_labels.at<int>(l)] +=1;
+	}
+	
+	for(int c = 0; c < classes.rows; c++){
+		classes_count[classes.at<int>(c)] /= sample_labels.rows;
+		classes_hist.at<float>(c,0) = classes.at<int>(c);
+		classes_hist.at<float>(c,1) = classes_count[classes.at<int>(c)];
+	}
+	
+	
+	return classes_hist;
+	
+}
+
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 
 //++++++++++++++ EXTRA METHODS TO FIND INFORMATION ABOUT THE TREE +++++++++++//

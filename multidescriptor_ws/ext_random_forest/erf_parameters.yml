@@ -1,17 +1,18 @@
 %YAML:1.0
 
 model_name: erf_model
-model_file: erf_flavia_b_model.yml
+model_file: ../forests_models/erf_flavia_a_model_001.yml
 save_model: 1
 
-training_set: ../datasets_descriptors/training_sets/flavia_leaves_b_sift_sift.yml
-test_set: ../datasets_descriptors/test_sets/flavia_leaves_b_sift_sift.yml
+concatenate_sets: 1
+training_set: ../datasets_descriptors/training_sets/bow100_flavia_leaves_a_sift_sift.yml ../datasets_descriptors/training_sets/bow100_flavia_leaves_a_surf_surf.yml
+test_set: ../datasets_descriptors/test_sets/bow100_flavia_leaves_a_sift_sift.yml ../datasets_descriptors/test_sets/bow100_flavia_leaves_a_surf_surf.yml
 
 max_depth: -1
 min_samples: 20
 active_vars: 30
-no_trees: 5
+no_trees: 15
 
-eval_per_feature: 0
+eval_per_feature: 1
 test_trainSet: 1
 test_testSet: 1

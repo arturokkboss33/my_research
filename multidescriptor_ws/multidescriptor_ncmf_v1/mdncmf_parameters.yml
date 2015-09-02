@@ -1,0 +1,17 @@
+%YAML:1.0
+
+model_name: mdncmf_model
+model_file: ../forests_models/mdncmf_flavia_a_model_001.yml
+save_model: 1
+
+training_sets: ../datasets_descriptors/training_sets/bow100_flavia_leaves_a_surf_surf.yml ../datasets_descriptors/training_sets/bow100_flavia_leaves_a_sift_sift.yml 
+test_sets: ../datasets_descriptors/test_sets/bow100_flavia_leaves_a_surf_surf.yml ../datasets_descriptors/test_sets/bow100_flavia_leaves_a_sift_sift.yml
+
+max_depth: -1
+min_samples: 20
+active_classes: -1
+no_trees: 15
+
+eval_per_feature: 0
+test_trainSet: 1
+test_testSet: 1

@@ -37,12 +37,13 @@ void Dectree_BST::set_root(dectree_node* rootPtr)
 
 //insert is not the same as in a common binary balance tree
 //the logic to insert the node in a branch of the tree is handled in the decision tree learning algorithm
-void Dectree_BST::insert_node(dectree_node** rootPtr, std::string type, unsigned int idx, int depth, int attribute, double cut_point, int classification)
+void Dectree_BST::insert_node(dectree_node** rootPtr, std::string type, unsigned int idx, int depth, int attribute, 
+	double cut_point, int classification, const cv::Mat& hist)
 {
 	//check if the tree is empty
 	if(*rootPtr == NULL)
 	{
-		*rootPtr = create_node(type, idx, depth, attribute, cut_point, classification);
+		*rootPtr = create_node(type, idx, depth, attribute, cut_point, classification, hist);
 	}
 	else
 	{
@@ -113,7 +114,8 @@ void Dectree_BST::postOrder(dectree_node* ptr)
 //create a node for the decision tree
 //depending if it is a leaf or a split node, the node's fields are
 //filled out differently
-dectree_node* Dectree_BST::create_node(std::string type, unsigned int idx, int depth, int attribute, double cut_point, int classification)
+dectree_node* Dectree_BST::create_node(std::string type, unsigned int idx, int depth, int attribute, 
+	double cut_point, int classification, const cv::Mat& hist)
 {
 	dectree_node* new_node = new dectree_node();
 	new_node->type = type;
@@ -132,6 +134,7 @@ dectree_node* Dectree_BST::create_node(std::string type, unsigned int idx, int d
 		new_node->attribute_id = attribute;
 		new_node->output = "none";
 		new_node->output_id = -1;
+		new_node->classes_dist = cv::Mat();
 
 		ss << "";
 		ss.clear();
@@ -149,6 +152,7 @@ dectree_node* Dectree_BST::create_node(std::string type, unsigned int idx, int d
 		new_node->attribute_id = -1;
 		new_node->output = ss.str();
 		new_node->output_id = classification;
+		new_node->classes_dist = hist;
 
 		ss << "";
 		ss.clear();
@@ -185,6 +189,7 @@ void Dectree_BST::postOrder_save(dectree_node* ptr, cv::FileStorage& fs)
 		fs << "Attribute" << (int)ptr->attribute_id;
 		fs << "CutPoint" << (float)ptr->cut_point;
 		fs << "Output" << (int)ptr->output_id;
+		fs << "ClassesHist" << ptr->classes_dist;
 		
 		fs << "}";
 	}

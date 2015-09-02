@@ -1,0 +1,21 @@
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*_exe
+*.o
+*.so
+
+# Others #
+##########
+*.*~
+*~
+*.swp
+*.swo
+
+# Specific files #
+##################
+multidescriptor_ws/datasets_descriptors/
+multidescriptor_ws/forests_models/

@@ -22,6 +22,9 @@
 
 #include <vector>
 #include <string>
+//opencv libraries
+#include "opencv2/core/core.hpp"
+#include "opencv2/opencv.hpp"
 
 struct dectree_node 
 {
@@ -34,6 +37,7 @@ struct dectree_node
 	double cut_point;
 	std::string output; 	//label for a classification
 	int output_id; 			//classification id
+	cv::Mat classes_dist;		//class distribution
 	dectree_node* f; 		//stands for false case
 	dectree_node* t; 		//stands for true case
 };
